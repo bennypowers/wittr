@@ -26,11 +26,7 @@ export default class IndexController {
 
     reg.onupdatefound = () => this._trackInstalling(reg.installing);
 
-    navigator.serviceWorker.oncontrollerchange = async () => {
-      const [reg] = navigator.serviceWorker.getRegistrations();
-      reg.unregister();
-      window.location.reload();
-    };
+    navigator.serviceWorker.oncontrollerchange = () => window.location.reload();
   }
 
   _trackInstalling(worker) {
@@ -41,8 +37,10 @@ export default class IndexController {
     const buttons = ['refresh', 'dismiss'];
     const toast = this._toastsView.show("New version available", {buttons});
 
-    const answer = await toast.answer();
-    return (answer !== 'refresh' || worker.state === 'redundant') || worker.postMessage({answer});
+    toast.answer.then((answer) =>
+      answer === 'refresh' &&
+      worker.state !== 'redundant' &&
+      worker.postMessage({answer}));
   }
 
   // open a connection to the server for live updates

@@ -8,11 +8,11 @@ class Toast {
   constructor(text, duration, buttons) {
     this.container = parseHTML(toastTemplate({text, buttons})).firstChild;
 
-    this.answer = new Promise(function(resolve) {
+    this.answer = new Promise((resolve) => {
       this._answerResolver = resolve;
     });
 
-    this.gone = new Promise(function(resolve) {
+    this.gone = new Promise((resolve) => {
       this._goneResolver = resolve;
     });
 
