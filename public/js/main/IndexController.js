@@ -16,7 +16,7 @@ export default class IndexController {
   async _registerServiceWorker() {
     if (!navigator.serviceWorker) return;
 
-    const reg = navigator.serviceWorker.register('/sw.js');
+    const reg = await navigator.serviceWorker.register('/sw.js');
 
     if (!navigator.serviceWorker.controller) return;
 
