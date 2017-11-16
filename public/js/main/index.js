@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import loadScripts from '../utils/loadScripts';
 import IndexController from './IndexController';
 
